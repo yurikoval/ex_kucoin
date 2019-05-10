@@ -33,7 +33,7 @@ defmodule ExKucoin.User.Account do
       }]}
 
   """
-  def all do
-    get("#{@prefix}/accounts")
+  def all(params \\ %{}, config \\ nil) do
+    get("#{@prefix}/accounts", params, config)
   end
 end

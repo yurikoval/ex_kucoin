@@ -27,4 +27,10 @@ defmodule TestHelper do
     {:ok, json} = Jason.encode(map)
     {:ok, %HTTPoison.Response{body: json, status_code: status_code}}
   end
+
+  def filter_sensitive_data do
+    ExVCR.Config.filter_request_headers("KC-API-KEY")
+    ExVCR.Config.filter_request_headers("KC-API-SIGN")
+    ExVCR.Config.filter_request_headers("KC-API-PASSPHRASE")
+  end
 end

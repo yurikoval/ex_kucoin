@@ -1,0 +1,46 @@
+[
+  {
+    "request": {
+      "body": "{\"clientOid\":\"XXXXX3\",\"side\":\"buy\",\"size\":1,\"symbol\":\"KCS-BTC\",\"type\":\"market\"}",
+      "headers": {
+        "Content-Type": "application/json",
+        "KC-API-KEY": "***",
+        "KC-API-SIGN": "***",
+        "KC-API-TIMESTAMP": "1557469380497",
+        "KC-API-PASSPHRASE": "***"
+      },
+      "method": "post",
+      "options": {
+        "ssl_options": {
+          "versions": [
+            "tlsv1.2"
+          ]
+        }
+      },
+      "request_body": "",
+      "url": "https://openapi-sandbox.kucoin.com/api/v1/orders"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"code\":\"200000\",\"data\":{\"orderId\":\"5cd518c4ef83c73f2e432cb3\"}}",
+      "headers": {
+        "Date": "Fri, 10 May 2019 06:23:00 GMT",
+        "Content-Type": "application/json;charset=UTF-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "nginx/1.10.3 (Ubuntu)",
+        "X-TRACE-ID": "d88d483a874a234c",
+        "Set-Cookie": "X-TRACE=gPyw6SEhDrhciKLbdq/o8DTnhtPP5PbFtP40DAUMqGQ=; Path=/",
+        "X-Content-Type-Options": "nosniff",
+        "X-XSS-Protection": "1; mode=block",
+        "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=98000; includeSubDomains; preload"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
