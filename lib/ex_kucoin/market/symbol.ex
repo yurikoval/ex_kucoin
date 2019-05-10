@@ -53,7 +53,7 @@ defmodule ExKucoin.Market.Symbol do
       }
     ]
   """
-  @spec all(market | nil) :: list
+  @spec all(market | nil) :: {:ok, list} | {:error, any}
   def all(market \\ nil) do
     params =
       if market do
