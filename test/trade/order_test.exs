@@ -36,5 +36,26 @@ defmodule ExKucoin.Trade.OrderTest do
                } = detail
       end
     end
+
+    test "creates market buy order", %{config: config} do
+      params = %{
+        "clientOid" => "XXXXX3",
+        "side" => "buy",
+        "symbol" => "KCS-BTC",
+        "type" => "market",
+        "size" => 1
+      }
+
+      filter_sensitive_data()
+
+      use_cassette "trade/create_buy_order" do
+        assert {:ok, detail} = Api.create(params, config)
+
+        assert %{
+                 "code" => "200000",
+                 "data" => %{"orderId" => _order_id}
+               } = detail
+      end
+    end
   end
 end
