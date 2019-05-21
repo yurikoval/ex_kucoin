@@ -47,12 +47,12 @@ defmodule ExKucoin.Market.OrderBook do
 
   """
   @spec level2(pair, depth) :: {:ok, map} | {:error, any}
-  def level2(pair, depth \\ nil) do
+  def level2(pair, depth \\ nil, config \\ nil) do
     case depth do
       20 -> "/api/v1/market/orderbook/level2_20"
       100 -> "/api/v1/market/orderbook/level2_100"
       _ -> "/api/v2/market/orderbook/level2"
     end
-    |> get(%{symbol: pair})
+    |> get(%{symbol: pair}, config)
   end
 end
