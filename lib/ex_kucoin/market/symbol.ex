@@ -54,7 +54,7 @@ defmodule ExKucoin.Market.Symbol do
     ]
   """
   @spec all(market | nil) :: {:ok, list} | {:error, any}
-  def all(market \\ nil) do
+  def all(market \\ nil, config \\ nil) do
     params =
       if market do
         %{market: market}
@@ -62,6 +62,6 @@ defmodule ExKucoin.Market.Symbol do
         %{}
       end
 
-    get("/api/v1/symbols", params)
+    get("/api/v1/symbols", params, config)
   end
 end
