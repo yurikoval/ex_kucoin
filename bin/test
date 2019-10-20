@@ -8,4 +8,4 @@ mix hex.audit
 mix compile --force --warnings-as-errors
 MIX_ENV=test mix compile --force --warnings-as-errors
 MIX_ENV=test mix test --exclude disabled
-mix dialyzer --halt-exit-status
+mix dialyzer
