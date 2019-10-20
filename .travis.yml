@@ -8,8 +8,7 @@ elixir:
 otp_release: '21.0'
 
 script:
-  - mix test
-  - mix dialyzer --halt-exit-status
+  - bin/test
 
 cache:
   directories:
