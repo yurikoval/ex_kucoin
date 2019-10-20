@@ -12,11 +12,11 @@ defmodule ExKucoin.WebSocket.PublicTest do
         "data" => %{
           "instanceServers" => [
             %{
-              "pingInterval" => 50000,
+              "pingInterval" => 50_000,
               "endpoint" => "wss://push1-v2.kucoin.com/endpoint",
               "protocol" => "websocket",
               "encrypt" => true,
-              "pingTimeout" => 10000
+              "pingTimeout" => 10_000
             }
           ],
           "token" =>
