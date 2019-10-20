@@ -8,9 +8,9 @@ defmodule ExKucoin.User.AccountTest do
 
   setup_all do
     config = %ExKucoin.Config{
-      api_key: System.get_env("OKEX_API_KEY") || "XXX",
-      api_secret: System.get_env("OKEX_API_SECRET") || "XXX",
-      api_passphrase: System.get_env("OKEX_API_PASSPHRASE") || "XXX",
+      api_key: System.get_env("API_KEY") || "XXX",
+      api_secret: System.get_env("API_SECRET") || "XXX",
+      api_passphrase: System.get_env("API_PASSPHRASE") || "XXX",
       api_url: "https://openapi-sandbox.kucoin.com"
     }
 
