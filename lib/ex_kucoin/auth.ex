@@ -1,4 +1,8 @@
 defmodule ExKucoin.Auth do
+  @moduledoc """
+  Handle request signing for API Authentication
+  """
+
   @spec timestamp :: String.t()
   def timestamp, do: :os.system_time(:millisecond) |> Integer.to_string()
 

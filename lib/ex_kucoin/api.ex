@@ -1,4 +1,8 @@
 defmodule ExKucoin.Api do
+  @moduledoc """
+  API Base
+  """
+
   @type path :: String.t()
   @type config :: ExKucoin.Config.t()
   @type params :: map
