@@ -31,7 +31,7 @@ defmodule ExKucoin.MixProject do
       {:exvcr, "~> 0.10", only: [:dev, :test]},
       {:httpoison, "~> 1.0"},
       {:jason, "~> 1.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:mock, "~> 0.3.3", only: :test},
       {:websockex, "~> 0.4.0"}
     ]
