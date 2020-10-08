@@ -9,29 +9,42 @@ defmodule ExKucoin.WebSocketTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup do
-    channels = ["/market/ticker:ETH-BTC"]
+  setup_all do
+    config = %ExKucoin.Config{
+      api_key: System.get_env("API_KEY") || "XXX",
+      api_secret: System.get_env("API_SECRET") || "XXX",
+      api_passphrase: System.get_env("API_PASSPHRASE") || "XXX",
+      api_url: "https://openapi-sandbox.kucoin.com"
+    }
 
-    {:ok, socket} =
-      WebSocketWrapper.start_link(%{
-        channels: channels,
-        config: %{access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]}
-      })
-
-    {:ok, socket: socket, state: :sys.get_state(socket)}
+    %{config: config}
   end
 
   describe "initial state" do
-    test "get state", %{state: state} do
-      assert state == %{
-               channels: ["/market/ticker:ETH-BTC"],
-               private_channels: [],
-               config: %{
-                 access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]
-               },
-               heartbeat: 0
-             }
+    test "get state", %{config: config} do
+      channels = ["/market/ticker:ETH-BTC"]
+
+      use_cassette "websocket/boot" do
+        socket =
+          start_supervised!({
+            WebSocketWrapper,
+            %{
+              channels: channels,
+              config: %{access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]}
+            }
+          })
+
+        assert :sys.get_state(socket) == %{
+                 channels: ["/market/ticker:ETH-BTC"],
+                 private_channels: [],
+                 config: %{
+                   access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]
+                 },
+                 heartbeat: 0
+               }
+      end
     end
   end
 end

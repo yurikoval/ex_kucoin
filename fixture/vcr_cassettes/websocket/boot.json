@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "{}",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "ssl_options": {
+          "versions": [
+            "tlsv1.2"
+          ]
+        }
+      },
+      "request_body": "",
+      "url": "https://openapi-sandbox.kucoin.com/api/v1/bullet-public"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"code\":\"200000\",\"data\":{\"token\":\"2neAiuYvAU61ZDXANAGAsiL4-iAExhsBXZxftpOeh_55i3Ysy2q2LEsEWU64mdzUOPusi34M_wGoSf7iNyEWJ_nSF_sEf8kkJbT5maV6RC_qFMA5vFwWEdiYB9J6i9GjsxUuhPw3BlrzazF6ghq4LznOA39BrZKRNv80LCOyHhc=.-20wqEkxMxDgu9g2GyV1jw==\",\"instanceServers\":[{\"endpoint\":\"wss://push-websocket-sandbox.kucoin.com/endpoint\",\"encrypt\":true,\"protocol\":\"websocket\",\"pingInterval\":50000,\"pingTimeout\":10000}]}}",
+      "headers": {
+        "Date": "Thu, 08 Oct 2020 04:55:08 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "397",
+        "Connection": "keep-alive",
+        "Set-Cookie": "AWSALB=/+Wr/VQ5lZzwpXJaQJszcWHf91dFbrOUXG+EbL3XovCedFKC+Xh9z9l86Ptc26qm/MpS70W0V6tdBfHPw7gSOoh8sHS2D3UMXNbddDSTjyREoPiG/rj1X3sFnY9e; Expires=Thu, 15 Oct 2020 04:55:08 GMT; Path=/",
+        "Server": "openresty",
+        "X-Content-Type-Options": "nosniff",
+        "X-XSS-Protection": "1; mode=block",
+        "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+        "Expires": "0",
+        "X-Frame-Options": "DENY",
+        "Strict-Transport-Security": "max-age=98000; includeSubDomains; preload"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
