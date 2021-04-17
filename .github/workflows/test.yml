@@ -1,7 +1,10 @@
+name: Test
+
 on:
   push:
     branches:
       - master
+      - main
   pull_request:
     branches:
       - '*'
@@ -13,34 +16,25 @@ jobs:
 
     strategy:
       matrix:
-        otp: [21.x, 22.x]
-        elixir: [1.7.x, 1.8.x, 1.9.x, 1.10.x]
+        otp: [22.x, 23.x]
+        elixir: [1.9.x, 1.10.x, 1.11.x]
 
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v2.3.4
 
-      - uses: actions/setup-elixir@v1.5
+      - uses: erlef/setup-elixir@v1.7
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
 
-      - name: Cache Dev Build
-        uses: actions/cache@v1
+      - name: Cache Elixir
+        uses: actions/cache@v2.1.4
         with:
-          path: _build/dev
-          key: dev-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
-          restore-keys: |
-            dev-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
-            dev-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
-
-      - name: Cache Test Build
-        uses: actions/cache@v1
-        with:
-          path: _build/test
-          key: test-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
-          restore-keys: |
-            test-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
-            test-build-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
+          path: |
+            deps
+            _build/dev
+            _build/test
+          key: elixir-cache-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}
 
       - name: Install Dependencies
         run: mix deps.get
