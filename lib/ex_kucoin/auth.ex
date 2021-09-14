@@ -11,8 +11,7 @@ defmodule ExKucoin.Auth do
     body = if Enum.empty?(body), do: "", else: Jason.encode!(body)
     data = "#{timestamp}#{method}#{path}#{body}"
 
-    :sha256
-    |> :crypto.hmac(api_secret, data)
+    :crypto.mac(:hmac, :sha256, api_secret, data)
     |> Base.encode64()
   end
 end
