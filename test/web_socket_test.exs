@@ -26,25 +26,23 @@ defmodule ExKucoin.WebSocketTest do
     test "get state", %{config: config} do
       channels = ["/market/ticker:ETH-BTC"]
 
-      use_cassette "websocket/boot" do
-        socket =
-          start_supervised!({
-            WebSocketWrapper,
-            %{
-              channels: channels,
-              config: %{access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]}
-            }
-          })
+      # credo:disable-for-next-line
+      # TODO: Cache response and use mock server for websocket
+      socket =
+        start_supervised!({
+          WebSocketWrapper,
+          %{
+            channels: channels,
+            config: config
+          }
+        })
 
-        assert :sys.get_state(socket) == %{
-                 channels: ["/market/ticker:ETH-BTC"],
-                 private_channels: [],
-                 config: %{
-                   access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]
-                 },
-                 heartbeat: 0
-               }
-      end
+      assert :sys.get_state(socket) == %{
+               channels: ["/market/ticker:ETH-BTC"],
+               private_channels: [],
+               config: config,
+               heartbeat: 0
+             }
     end
   end
 end
