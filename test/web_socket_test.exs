@@ -32,16 +32,14 @@ defmodule ExKucoin.WebSocketTest do
             WebSocketWrapper,
             %{
               channels: channels,
-              config: %{access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]}
+              config: config
             }
           })
 
         assert :sys.get_state(socket) == %{
                  channels: ["/market/ticker:ETH-BTC"],
                  private_channels: [],
-                 config: %{
-                   access_keys: ["OK_1_API_KEY", "OK_1_API_SECRET", "OK_1_API_PASSPHRASE"]
-                 },
+                 config: config,
                  heartbeat: 0
                }
       end
