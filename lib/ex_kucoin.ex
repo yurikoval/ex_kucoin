@@ -1,3 +1,5 @@
 defmodule ExKucoin do
-  @moduledoc false
+  @moduledoc """
+  KuCoin API client
+  """
 end
