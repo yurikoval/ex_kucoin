@@ -15,4 +15,13 @@ defmodule ExKucoin.Trade.Order do
   def create(params, config \\ nil) do
     post("#{@prefix}/orders", params, config)
   end
+
+  @doc """
+  Request via this endpoint to get your current order list
+
+  [API Docs](https://docs.kucoin.com/#list-orders)
+  """
+  def list(params, config \\ nil) do
+    get("#{@prefix}/orders", params, config)
+  end
 end
