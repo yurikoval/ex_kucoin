@@ -49,13 +49,16 @@ defmodule ExKucoin.Api.Private do
   defp headers(method, path, body, config) do
     timestamp = ExKucoin.Auth.timestamp()
     signed = ExKucoin.Auth.sign(timestamp, method, path, body, config.api_secret)
-
+    passphrase = :crypto.mac(:hmac, :sha256, config.api_secret, config.api_passphrase)
+    |> Base.encode64()
+    
     [
       "Content-Type": "application/json",
       "KC-API-KEY": config.api_key,
       "KC-API-SIGN": signed,
       "KC-API-TIMESTAMP": timestamp,
-      "KC-API-PASSPHRASE": config.api_passphrase
+      "KC-API-PASSPHRASE": passphrase,
+      "KC-API-KEY-VERSION": "2"
     ]
   end
 end

@@ -4,8 +4,10 @@ defmodule ExKucoin.WebSocket do
   import Logger, only: [info: 1, warn: 1]
   import Process, only: [send_after: 3]
 
-  # Client API
-  defmacro __using__(_opts) do
+  ## Client API
+  # get_endpoint will call the /api/v1/bullet-private endpoint with
+  # authentication if option private: true is specified when using
+  defmacro __using__(opts \\ []) do
     quote do
       use WebSockex
       alias ExKucoin.Config
@@ -17,7 +19,7 @@ defmodule ExKucoin.WebSocket do
       def start_link(args \\ %{}) do
         name = args[:name] || __MODULE__
         state = Map.merge(%{heartbeat: 0, channels: [], private_channels: []}, args)
-        WebSockex.start_link(get_public_endpoint(), __MODULE__, state, name: name)
+        WebSockex.start_link(get_endpoint(), __MODULE__, state, name: name)
       end
 
       def handle_connect(_conn, state) do
@@ -124,11 +126,19 @@ defmodule ExKucoin.WebSocket do
         Map.put(state, :heartbeat, heartbeat + 1)
       end
 
-      @spec get_public_endpoint() :: api_url
-      defp get_public_endpoint() do
-        {:ok, %{"code" => "200000", "data" => %{"token" => token, "instanceServers" => servers}}} =
-          ExKucoin.WebSocket.Public.endpoint()
+      @spec get_endpoint() :: api_url
+      defp get_endpoint() do
+	opts = unquote(opts)
+	maybe_bool = Keyword.get(opts, :private, false)
+	is_private = if is_boolean(maybe_bool), do: maybe_bool, else: false
 
+	mod = case is_private do
+		true -> ExKucoin.WebSocket.Private
+		false -> ExKucoin.WebSocket.Public
+	      end
+	
+        {:ok, %{"code" => "200000", "data" => %{"token" => token, "instanceServers" => servers}}} = mod.endpoint()
+	
         %{"endpoint" => api_url} = hd(servers)
         "#{api_url}?token=#{token}"
       end
