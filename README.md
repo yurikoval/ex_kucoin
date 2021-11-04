@@ -13,7 +13,7 @@ List the Hex package in your application dependencies.
 
 ```elixir
 def deps do
-  [{:ex_kucoin, "~> 0.0.5"}]
+  [{:ex_kucoin, "~> 0.1.0"}]
 end
 ```
 

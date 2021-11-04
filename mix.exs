@@ -4,7 +4,7 @@ defmodule ExKucoin.MixProject do
   def project do
     [
       app: :ex_kucoin,
-      version: "0.0.5",
+      version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -40,7 +40,7 @@ defmodule ExKucoin.MixProject do
   defp docs do
     [
       main: "ExKucoin",
-      extras: ["README.md"]
+      extras: ["README.md", "CHANGELOG.md"]
     ]
   end
 
@@ -49,7 +49,10 @@ defmodule ExKucoin.MixProject do
       name: :ex_kucoin,
       maintainers: ["Yuri Koval'ov"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/yurikoval/ex_kucoin"}
+      links: %{
+        "GitHub" => "https://github.com/yurikoval/ex_kucoin",
+        "Changelog" => "https://hexdocs.pm/ex_kucoin/changelog.html"
+      }
     ]
   end
 end
