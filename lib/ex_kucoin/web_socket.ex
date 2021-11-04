@@ -128,17 +128,19 @@ defmodule ExKucoin.WebSocket do
 
       @spec get_endpoint() :: api_url
       defp get_endpoint() do
-	opts = unquote(opts)
-	maybe_bool = Keyword.get(opts, :private, false)
-	is_private = if is_boolean(maybe_bool), do: maybe_bool, else: false
+        opts = unquote(opts)
+        maybe_bool = Keyword.get(opts, :private, false)
+        is_private = if is_boolean(maybe_bool), do: maybe_bool, else: false
 
-	mod = case is_private do
-		true -> ExKucoin.WebSocket.Private
-		false -> ExKucoin.WebSocket.Public
-	      end
-	
-        {:ok, %{"code" => "200000", "data" => %{"token" => token, "instanceServers" => servers}}} = mod.endpoint()
-	
+        mod =
+          case is_private do
+            true -> ExKucoin.WebSocket.Private
+            false -> ExKucoin.WebSocket.Public
+          end
+
+        {:ok, %{"code" => "200000", "data" => %{"token" => token, "instanceServers" => servers}}} =
+          mod.endpoint()
+
         %{"endpoint" => api_url} = hd(servers)
         "#{api_url}?token=#{token}"
       end
