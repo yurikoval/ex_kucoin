@@ -12,8 +12,6 @@ defmodule ExKucoin.WebSocket do
       use WebSockex
       alias ExKucoin.Config
 
-      @ping_interval Application.get_env(:ex_kucoin, :ping_interval, 5_000)
-
       @type api_url :: String.t()
 
       def start_link(args \\ %{}) do
