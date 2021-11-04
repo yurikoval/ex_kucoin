@@ -15,9 +15,10 @@ defmodule ExKucoin.Auth do
         Jason.encode!(body)
       end
 
-    data = "#{timestamp}#{method}#{path}#{body}"
-
-    :crypto.mac(:hmac, :sha256, api_secret, data)
-    |> Base.encode64()
+    "#{timestamp}#{method}#{path}#{body}"
+    |> encrypt(api_secret)
   end
+
+  @spec encrypt(String.t(), String.t()) :: String.t()
+  def encrypt(data, secret), do: :crypto.mac(:hmac, :sha256, secret, data) |> Base.encode64()
 end
