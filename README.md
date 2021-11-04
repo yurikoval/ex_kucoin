@@ -46,14 +46,23 @@ config :ex_kucoin, api_key:        System.get_env("KUCOIN_API_KEY"),
 
 #### Websocket
 
-During the setup you can pass the access keys as argument. Ex:
+For public feed:
 
 ```elixir
-defmodule WsWrapper do
-  @moduledoc false
-
-  require Logger
+defmodule KuWs.PublicFeed do
   use ExKucoin.WebSocket
+
+  ...
+end
+```
+
+For private feed:
+```elixir
+
+defmodule KuWs.PrivateFeed do
+  use ExKucoin.WebSocket, private: true
+
+  ...
 end
 ```
 
