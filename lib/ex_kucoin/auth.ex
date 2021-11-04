@@ -8,10 +8,17 @@ defmodule ExKucoin.Auth do
 
   @spec sign(String.t(), String.t(), String.t(), map | [map], String.t()) :: String.t()
   def sign(timestamp, method, path, body, api_secret) do
-    body = if Enum.empty?(body), do: "", else: Jason.encode!(body)
-    data = "#{timestamp}#{method}#{path}#{body}"
+    body =
+      if Enum.empty?(body) and method in ["GET", "DELETE"] do
+        ""
+      else
+        Jason.encode!(body)
+      end
 
-    :crypto.mac(:hmac, :sha256, api_secret, data)
-    |> Base.encode64()
+    "#{timestamp}#{method}#{path}#{body}"
+    |> encrypt(api_secret)
   end
+
+  @spec encrypt(String.t(), String.t()) :: String.t()
+  def encrypt(data, secret), do: :crypto.mac(:hmac, :sha256, secret, data) |> Base.encode64()
 end
