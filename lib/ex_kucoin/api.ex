@@ -17,11 +17,7 @@ defmodule ExKucoin.Api do
   def query_string(path, params) when map_size(params) == 0, do: path
 
   def query_string(path, params) do
-    query =
-      params
-      |> Enum.map(fn {key, val} -> "#{key}=#{val}" end)
-      |> Enum.join("&")
-
+    query = Enum.map_join(params, "&", fn {key, val} -> "#{key}=#{val}" end)
     path <> "?" <> query
   end
 
